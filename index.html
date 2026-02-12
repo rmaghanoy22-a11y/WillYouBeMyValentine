@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Will You Be My Valentine?</title>
+  </head>
+  <body>
+    <div class="heart-background"></div>
+    <main class="valentine-card">
+      <img src="image/valentine.gif" alt="Cute bear hug" class="hero-gif" />
+      <h1>Will you be my Valentine? 😘</h1>
+      <p class="subtitle">
+        You can try to say no... but the button won’t let you go. 💗
+      </p>
+      <div class="btn_wrap">
+        <button id="yes" class="btn primary">Yes</button>
+        <button id="no" class="btn secondary">No</button>
+      </div>
+    </main>
+    <script>
+      const YesBtn = document.getElementById("yes");
+      const NoBtn = document.getElementById("no");
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      let mobileMoveCount = 0;
+      const mobileMaxMoves = 2;
+
+      NoBtn.style.transition = "top 0.2s, left 0.2s";
+
+      function moveNoButton() {
+        const maxWidth = window.innerWidth - NoBtn.offsetWidth;
+        const maxHeight = window.innerHeight - NoBtn.offsetHeight;
+        const randomX = Math.round(Math.random() * maxWidth);
+        const randomY = Math.round(Math.random() * maxHeight);
+
+        NoBtn.style.position = "absolute";
+        NoBtn.style.left = `${randomX}px`;
+        NoBtn.style.top = `${randomY}px`;
+      }
+
+      // Desktop / larger screens: keep playful infinite hover
+      NoBtn.addEventListener("mouseover", () => {
+        if (isMobile) return;
+        moveNoButton();
+      });
+
+      // Mobile: only move the "No" button twice on tap, then let it stay
+      NoBtn.addEventListener("click", () => {
+        if (!isMobile) return;
+        if (mobileMoveCount >= mobileMaxMoves) return;
+        moveNoButton();
+        mobileMoveCount++;
+      });
+
+      YesBtn.addEventListener("click", () => {
+        window.location.href = "month.html";
+      });
+    </script>
+  </body>
+</html>
